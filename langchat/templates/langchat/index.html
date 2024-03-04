@@ -30,32 +30,23 @@
 </div>
 
 <script>
-
-function getUserResponse(){
-
+function getUserResponse() {
     var userText = $('#textInput').val();
-    var userHTML = "<p class='userText'>User: <span>"+userText+"</span></p>";
+    var userHTML = "<p class='userText'>User: <span>" + userText + "</span></p>";
     $('#textInput').val("");
-
     $('#chatbot').append(userHTML);
 
-<!--    $.get('/index/getResponse', {userMessage:userText}).done(function(data){-->
-<!--        var returnedMessage = "<p class='botText'>ChatBot: <span>"+data+"</span></p>";-->
-<!--        $('#chatbot').append(returnedMessage);-->
-<!--    })-->
-
-$.get('/index/getResponse', {userMessage: userText}).done(function(data){
-    var returnedMessage = "<p class='botText'>ChatBot: <span>"+data.response+"</span></p>";
-    $('#chatbot').append(returnedMessage);
-})
-
+    $.get('/index/chat', { userMessage: userText }).done(function (data) {
+        var returnedMessage = "<p class='botText'>ChatBot: <span>" + data.response + "</span></p>";
+        $('#chatbot').append(returnedMessage);
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        console.error("Erro ao obter resposta do servidor:", errorThrown);
+    });
 }
 
 $('#buttonInput').click(function(){
     getUserResponse();
-
-})
-
+});
 </script>
 
 </body>

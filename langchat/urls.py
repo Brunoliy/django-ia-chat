@@ -4,6 +4,6 @@ from langchat import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('getResponse', views.getResponse, name='getResponse')
+    path('chat', views.chat, name='chat')
 
 ]
